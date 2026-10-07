@@ -1,0 +1,22 @@
+{
+  "id": "happy-path",
+  "label": "Caso simples",
+  "description": "[Descrição curta]",
+  "humanReview": "skip",
+  "claraAfter": "[O que a Clara diz no fim deste cenário]",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "[Gatilho]"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "[Resultado]"
+    }
+  ],
+  "expect": {
+    "handoff": false
+  }
+}

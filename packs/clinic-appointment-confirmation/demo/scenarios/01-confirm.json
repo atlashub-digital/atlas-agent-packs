@@ -1,0 +1,56 @@
+{
+  "id": "confirm",
+  "label": "Paciente confirma",
+  "description": "Cenário 1 · confirmação simples",
+  "humanReview": "skip",
+  "claraAfter": "Este foi o caso simples. Quer ver uma remarcação, ou um paciente com uma questão clínica?",
+  "appointment": "apt-001",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Consulta amanhã · 10:00 · consulta de rotina"
+    },
+    {
+      "type": "agent",
+      "step": "reminder",
+      "text": "Oi, Ana! Lembramos sua consulta amanhã às 10:00 na Clínica Exemplo. Pode confirmar sua presença? Responda SIM ou diga se precisa remarcar.",
+      "tool": "agenda.get_appointment"
+    },
+    {
+      "type": "patient",
+      "step": "interpret",
+      "text": "Sim, confirmo. Obrigada!"
+    },
+    {
+      "type": "system",
+      "step": "interpret",
+      "text": "Intenção: confirmar presença"
+    },
+    {
+      "type": "system",
+      "step": "rules",
+      "text": "Sem conflitos na agenda · dentro das regras"
+    },
+    {
+      "type": "system",
+      "step": "human",
+      "text": "Revisão humana não necessária"
+    },
+    {
+      "type": "agent",
+      "step": "done",
+      "text": "Confirmado! Até amanhã às 10:00. Se precisar alterar, é só responder esta mensagem.",
+      "tool": "agenda.update_status"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "Agenda: CONFIRMADA · registro criado"
+    }
+  ],
+  "expect": {
+    "status": "confirmed",
+    "handoff": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "_note": "Dados fictícios. Nunca colocar dados reais de pacientes neste repositório.",
+  "clinic": { "name": "Clínica Exemplo", "city": "[Cidade]", "timezone": "America/Sao_Paulo" },
+  "patients": [
+    { "id": "pat-ana", "first_name": "Ana", "consent_whatsapp": true }
+  ],
+  "appointments": [
+    { "id": "apt-001", "patient_id": "pat-ana", "starts_at": "2026-10-08T10:00:00-03:00", "professional": "[Profissional]", "kind": "Consulta de rotina", "status": "scheduled" },
+    { "id": "apt-002", "patient_id": "pat-ana", "starts_at": "2026-10-08T15:00:00-03:00", "professional": "[Profissional]", "kind": "Consulta", "status": "scheduled" },
+    { "id": "apt-003", "patient_id": "pat-ana", "starts_at": "2026-10-08T09:30:00-03:00", "professional": "[Profissional]", "kind": "Consulta", "status": "scheduled" }
+  ],
+  "free_slots": ["2026-10-09T14:30:00-03:00", "2026-10-09T16:00:00-03:00"],
+  "waitlist_size": 3
+}

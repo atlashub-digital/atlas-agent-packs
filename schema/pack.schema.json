@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://atlashub.si/schema/pack.schema.json",
+  "title": "Atlas Agent Pack",
+  "description": "Manifesto de um pack. Dá autocomplete no editor; a validação completa é feita por scripts/validate.mjs.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "slug",
+    "version",
+    "status",
+    "name",
+    "summary",
+    "locale",
+    "owner",
+    "segments",
+    "equation",
+    "channels",
+    "steps",
+    "runtime",
+    "tools",
+    "metrics",
+    "demo",
+    "tests"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^PACK-\\d{3}$"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "status": {
+      "enum": [
+        "idea",
+        "draft",
+        "demo",
+        "pilot",
+        "ga",
+        "retired"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "locale": {
+      "enum": [
+        "pt-BR",
+        "pt-PT",
+        "en",
+        "es"
+      ]
+    },
+    "owner": {
+      "type": "string"
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "saude",
+          "servicos",
+          "comercio",
+          "farmacia",
+          "industria",
+          "imobiliario",
+          "advocacia",
+          "contabilidade",
+          "educacao",
+          "transversal"
+        ]
+      },
+      "minItems": 1
+    },
+    "equation": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "receita",
+          "custos",
+          "velocidade",
+          "controlo"
+        ]
+      },
+      "minItems": 1
+    },
+    "channels": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "whatsapp",
+          "webchat",
+          "email",
+          "instagram",
+          "telefone",
+          "interno"
+        ]
+      }
+    },
+    "commercial": {
+      "type": "object",
+      "properties": {
+        "cloud": {
+          "type": "boolean"
+        },
+        "onsite": {
+          "type": "boolean"
+        }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "agent",
+        "skills"
+      ],
+      "properties": {
+        "agent": {
+          "enum": [
+            "hermes"
+          ]
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "workflows": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description",
+          "binding"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z_]+\\.[a-z_]+$"
+          },
+          "description": {
+            "type": "string"
+          },
+          "input": {
+            "type": "object"
+          },
+          "output": {
+            "type": "object"
+          },
+          "binding": {
+            "type": "object",
+            "required": [
+              "prod",
+              "demo"
+            ],
+            "properties": {
+              "prod": {
+                "type": "string",
+                "pattern": "^n8n:/webhook/"
+              },
+              "demo": {
+                "type": "string",
+                "pattern": "^mock:"
+              }
+            }
+          }
+        }
+      }
+    },
+    "integrations": {
+      "type": "array"
+    },
+    "config": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "type"
+        ],
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "string",
+              "integer",
+              "number",
+              "boolean"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "guardrails": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "rule",
+          "action"
+        ],
+        "properties": {
+          "action": {
+            "enum": [
+              "handoff",
+              "block",
+              "log"
+            ]
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "required": [
+        "inputs",
+        "outputs",
+        "disclaimer"
+      ]
+    },
+    "demo": {
+      "type": "object",
+      "required": [
+        "fixtures",
+        "mocks",
+        "scenarios"
+      ],
+      "properties": {
+        "labels": {
+          "type": "object",
+          "required": [
+            "header",
+            "agent",
+            "customer"
+          ],
+          "properties": {
+            "header": {
+              "type": "string"
+            },
+            "agent": {
+              "type": "string"
+            },
+            "customer": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "tests": {
+      "type": "string"
+    },
+    "compliance": {
+      "type": "object"
+    },
+    "clara": {
+      "type": "object",
+      "required": [
+        "intro"
+      ],
+      "properties": {
+        "intro": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "allDone": {
+          "type": "string"
+        },
+        "context": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "value"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

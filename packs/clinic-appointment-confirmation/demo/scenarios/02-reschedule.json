@@ -1,0 +1,68 @@
+{
+  "id": "reschedule",
+  "label": "Paciente remarca",
+  "description": "Cenário 2 · remarcação dentro das regras",
+  "humanReview": "skip",
+  "claraAfter": "A vaga libertada vai para a lista de espera, por isso a falta não chega a acontecer. Teste agora uma exceção.",
+  "appointment": "apt-002",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Consulta amanhã · 15:00"
+    },
+    {
+      "type": "agent",
+      "step": "reminder",
+      "text": "Oi, Ana! Lembramos sua consulta amanhã às 15:00 na Clínica Exemplo. Pode confirmar sua presença? Responda SIM ou diga se precisa remarcar.",
+      "tool": "agenda.get_appointment"
+    },
+    {
+      "type": "patient",
+      "step": "interpret",
+      "text": "Amanhã não consigo. Dá para quinta-feira à tarde?"
+    },
+    {
+      "type": "system",
+      "step": "interpret",
+      "text": "Intenção: remarcar · preferência: quinta, tarde"
+    },
+    {
+      "type": "system",
+      "step": "rules",
+      "text": "Agenda: 2 horários livres na quinta à tarde",
+      "tool": "agenda.find_slots"
+    },
+    {
+      "type": "agent",
+      "step": "rules",
+      "text": "Tenho quinta-feira às 14:30 ou às 16:00. Qual você prefere?"
+    },
+    {
+      "type": "patient",
+      "step": "rules",
+      "text": "Às 16:00, por favor."
+    },
+    {
+      "type": "system",
+      "step": "human",
+      "text": "Dentro das regras · revisão humana não necessária"
+    },
+    {
+      "type": "agent",
+      "step": "done",
+      "text": "Pronto: sua consulta passou para quinta-feira às 16:00.",
+      "tool": "agenda.update_status"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "Vaga de amanhã às 15:00 liberada para a lista de espera",
+      "tool": "waitlist.offer_slot"
+    }
+  ],
+  "expect": {
+    "status": "rescheduled",
+    "handoff": false
+  }
+}

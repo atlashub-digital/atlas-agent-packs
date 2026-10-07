@@ -1,0 +1,58 @@
+{
+  "id": "clinical-exception",
+  "label": "Exceção clínica",
+  "description": "Cenário 3 · o agente para e passa a uma pessoa",
+  "humanReview": "required",
+  "claraAfter": "Repare: perante uma questão clínica o agente pára e passa a uma pessoa. Estes limites são definidos pela sua equipa.",
+  "appointment": "apt-003",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Consulta amanhã · 09:30"
+    },
+    {
+      "type": "agent",
+      "step": "reminder",
+      "text": "Oi, Ana! Lembramos sua consulta amanhã às 09:30 na Clínica Exemplo. Pode confirmar sua presença? Responda SIM ou diga se precisa remarcar.",
+      "tool": "agenda.get_appointment"
+    },
+    {
+      "type": "patient",
+      "step": "interpret",
+      "text": "Confirmo, mas estou com muita dor desde ontem. Devo tomar alguma coisa até lá?"
+    },
+    {
+      "type": "system",
+      "step": "interpret",
+      "text": "Intenção: confirmar + questão clínica"
+    },
+    {
+      "type": "system",
+      "step": "rules",
+      "text": "Limite: o agente não dá aconselhamento clínico",
+      "guardrail": "no-clinical-advice"
+    },
+    {
+      "type": "agent",
+      "step": "rules",
+      "text": "Presença confirmada. Sobre a dor, vou passar agora sua mensagem para a equipe da clínica, que vai responder diretamente. Se for urgente, procure atendimento de urgência."
+    },
+    {
+      "type": "system",
+      "step": "human",
+      "text": "Encaminhado para a recepção · prioridade alta",
+      "tool": "team.handoff"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "Agenda: CONFIRMADA · tarefa criada para a equipe",
+      "tool": "agenda.update_status"
+    }
+  ],
+  "expect": {
+    "status": "confirmed",
+    "handoff": true
+  }
+}

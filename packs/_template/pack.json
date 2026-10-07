@@ -1,0 +1,135 @@
+{
+  "$schema": "../../schema/pack.schema.json",
+  "schemaVersion": 1,
+  "id": "PACK-000",
+  "slug": "template",
+  "version": "0.0.1",
+  "status": "idea",
+  "name": "[Nome do pack]",
+  "summary": "[Uma frase: que dor resolve e para quem]",
+  "locale": "pt-BR",
+  "owner": "max",
+  "segments": [
+    "servicos"
+  ],
+  "equation": [
+    "custos"
+  ],
+  "channels": [
+    "whatsapp"
+  ],
+  "commercial": {
+    "cloud": true,
+    "onsite": true
+  },
+  "steps": [
+    {
+      "id": "trigger",
+      "label": "Gatilho",
+      "description": "[O que inicia]"
+    },
+    {
+      "id": "interpret",
+      "label": "Interpretar",
+      "description": "[O que o agente decide]"
+    },
+    {
+      "id": "human",
+      "label": "Revisão humana",
+      "description": "[Quando entra uma pessoa]"
+    },
+    {
+      "id": "done",
+      "label": "Concluir",
+      "description": "[O que fica registado]"
+    }
+  ],
+  "runtime": {
+    "agent": "hermes",
+    "skills": [
+      "skills/agent.md"
+    ],
+    "workflows": [
+      "workflows/README.md"
+    ]
+  },
+  "tools": [
+    {
+      "id": "team.handoff",
+      "description": "Passa para uma pessoa.",
+      "input": {
+        "conversation_id": "string",
+        "reason": "string"
+      },
+      "output": {
+        "task_id": "string"
+      },
+      "binding": {
+        "prod": "n8n:/webhook/pack-000/handoff",
+        "demo": "mock:team.handoff"
+      }
+    }
+  ],
+  "integrations": [],
+  "config": [],
+  "guardrails": [],
+  "metrics": {
+    "inputs": [
+      {
+        "key": "volume_per_month",
+        "label": "Pedidos por mês",
+        "unit": "",
+        "default": 100,
+        "min": 0,
+        "max": 100000,
+        "step": 10
+      }
+    ],
+    "outputs": [
+      {
+        "key": "volume",
+        "label": "Pedidos por mês",
+        "formula": "volume_per_month"
+      }
+    ],
+    "disclaimer": "Hipótese calculada com os números do lead. Não é uma previsão."
+  },
+  "demo": {
+    "fixtures": "demo/fixtures/example.json",
+    "mocks": "demo/mocks.json",
+    "scenarios": [
+      "demo/scenarios/01-happy-path.json"
+    ],
+    "labels": {
+      "header": "[Empresa fictícia · Canal]",
+      "agent": "AGENTE · [EMPRESA]",
+      "customer": "[CLIENTE FICTÍCIO]"
+    }
+  },
+  "tests": "tests/acceptance.json",
+  "compliance": {
+    "dataClasses": [],
+    "excludes": [],
+    "lgpd": []
+  },
+  "clara": {
+    "intro": [
+      "[O que a Clara diz ao abrir a simulação]"
+    ],
+    "allDone": "[O que a Clara diz depois de o lead ver todos os cenários]",
+    "context": [
+      {
+        "label": "Segmento",
+        "value": "[Segmento]"
+      },
+      {
+        "label": "Canal",
+        "value": "[Canal]"
+      },
+      {
+        "label": "Dor principal",
+        "value": "[Dor]"
+      }
+    ]
+  }
+}
