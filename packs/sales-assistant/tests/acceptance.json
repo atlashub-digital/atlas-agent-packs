@@ -1,0 +1,18 @@
+{
+  "cases": [
+    {
+      "id": "D01",
+      "description": "Rascunho sem envio",
+      "expect": {
+        "handoff": true
+      }
+    },
+    {
+      "id": "D02",
+      "description": "Envio sem aprovação bloqueado",
+      "expect": {
+        "handoff": true
+      }
+    }
+  ]
+}

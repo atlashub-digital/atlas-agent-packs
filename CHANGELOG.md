@@ -1,3 +1,7 @@
+# 0.2.0 — Round 1
+
+PACK-002 Assistente Comercial e PACK-003 Secretária Administrativa em demo com dados fictícios, handoff obrigatório e sem integrações ativas. PACK-001 preservado.
+
 # Changelog
 
 Formato: [SemVer](https://semver.org). A versão do repositório é a versão do catálogo que o app consome.
