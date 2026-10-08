@@ -3,7 +3,7 @@
 Índice de tudo o que existe neste repositório e do **estado de integração** de cada peça.
 Atualizar este ficheiro em cada PR que acrescente ou mude packs, scripts ou documentação.
 
-**Versão do catálogo:** 0.3.0 · **Packs em `demo`+:** 8 · **Última atualização:** 2026-10-08
+**Versão do catálogo:** 0.3.1 · **Packs em `demo`+:** 8 · **Última atualização:** 2026-10-08
 
 Legenda: ✅ integrado e testado · 🟡 integrado, sem verificação completa · ⬜ por fazer
 

@@ -26,6 +26,8 @@ for (const dir of packDirs()) {
     steps: p.steps,
     guardrails: (p.guardrails ?? []).map(({ id, rule, action }) => ({ id, rule, action })),
     integrations: (p.integrations ?? []).map(({ id, kind, required, description }) => ({ id, kind, required, description })),
+    // Tool contract summary (no bindings or secrets): lets the app show what requires human approval.
+    tools: (p.tools ?? []).map(({ id, description, policy }) => ({ id, description, policy: policy ?? 'auto' })),
     metrics: p.metrics,
     clara: p.clara,
     labels: p.demo.labels,
