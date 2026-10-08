@@ -1,16 +1,22 @@
 {
   "name": "@atlashub/agent-packs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Atlas Agent Packs — agentes e automações reutilizáveis da AtlasHub.SI, com modo demo para o simulador.",
   "private": true,
   "type": "module",
   "license": "UNLICENSED",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "exports": {
     "./catalog": "./dist/catalog.json",
     "./metrics": "./lib/metrics.mjs"
   },
-  "files": ["dist", "lib", "schema"],
+  "files": [
+    "dist",
+    "lib",
+    "schema"
+  ],
   "scripts": {
     "validate": "node scripts/validate.mjs",
     "build": "node scripts/build-catalog.mjs",
