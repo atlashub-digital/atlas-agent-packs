@@ -1,0 +1,41 @@
+{
+  "id": "register-reconcile",
+  "label": "Fatura e conciliação",
+  "description": "Registo sem duplicados; conciliação só proposta",
+  "humanReview": "optional",
+  "claraAfter": "O assistente propõe conciliações; uma pessoa confirma antes de mexer nas contas.",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Fatura fictícia recebida"
+    },
+    {
+      "type": "staff",
+      "step": "interpret",
+      "text": "Regista esta fatura e concilia com o extrato."
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Fatura registada (sem duplicado).",
+      "tool": "invoice.register",
+      "guardrail": "no-duplicates"
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Movimento correspondente encontrado.",
+      "tool": "reconcile.match"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "Conciliação proposta para confirmação"
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "handoff": false
+  }
+}

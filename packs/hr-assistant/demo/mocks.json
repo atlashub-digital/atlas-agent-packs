@@ -1,0 +1,32 @@
+{
+  "application.register": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "faq.answer": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "interview.find_slots": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "interview.schedule": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "team.handoff": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  }
+}

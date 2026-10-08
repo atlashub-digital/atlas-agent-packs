@@ -1,0 +1,36 @@
+{
+  "id": "search",
+  "label": "Procura de imóvel",
+  "description": "Só imóveis reais e disponíveis da carteira",
+  "humanReview": "skip",
+  "claraAfter": "O consultor nunca inventa imóveis, preços ou disponibilidade.",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Mensagem fictícia com consentimento"
+    },
+    {
+      "type": "customer",
+      "step": "interpret",
+      "text": "Procuro um T2 em Lisboa até 400 mil euros."
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Encontrei 1 imóvel disponível que cumpre os critérios.",
+      "tool": "property.search",
+      "guardrail": "no-invention"
+    },
+    {
+      "type": "agent",
+      "step": "done",
+      "text": "Lead registado com os critérios",
+      "tool": "lead.capture"
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "handoff": false
+  }
+}

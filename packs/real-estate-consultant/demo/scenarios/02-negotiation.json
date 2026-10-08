@@ -1,0 +1,34 @@
+{
+  "id": "negotiation",
+  "label": "Negociação de preço",
+  "description": "Ofertas e descontos são sempre humanos",
+  "humanReview": "required",
+  "claraAfter": "Preço e propostas são decididos por pessoas da agência.",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Mensagem fictícia"
+    },
+    {
+      "type": "customer",
+      "step": "interpret",
+      "text": "Aceitam uma contraproposta com desconto?"
+    },
+    {
+      "type": "staff",
+      "step": "human",
+      "text": "Encaminhado a um consultor humano",
+      "tool": "team.handoff",
+      "guardrail": "no-offers"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "Nenhuma oferta feita pelo assistente"
+    }
+  ],
+  "expect": {
+    "handoff": true
+  }
+}

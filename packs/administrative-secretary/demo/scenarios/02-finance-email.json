@@ -1,0 +1,39 @@
+{
+  "id": "finance-email",
+  "label": "Email financeiro",
+  "description": "Faturas vão sempre para uma pessoa",
+  "humanReview": "required",
+  "claraAfter": "Temas financeiros são encaminhados à equipa com um resumo.",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Email fictício na caixa de entrada"
+    },
+    {
+      "type": "customer",
+      "step": "interpret",
+      "text": "Segue a fatura de setembro."
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Etiquetado como finanças e resumo criado.",
+      "tool": "brief.create"
+    },
+    {
+      "type": "staff",
+      "step": "human",
+      "text": "Equipa financeira recebe a tarefa",
+      "tool": "team.handoff"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "Nenhuma resposta automática"
+    }
+  ],
+  "expect": {
+    "handoff": true
+  }
+}

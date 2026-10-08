@@ -1,0 +1,42 @@
+{
+  "id": "meeting-request",
+  "label": "Pedido de reunião",
+  "description": "Reserva de horário só com aprovação; resposta em rascunho",
+  "humanReview": "required",
+  "claraAfter": "A secretária só prepara rascunhos: nenhum email é enviado sem uma pessoa.",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Email fictício na caixa de entrada"
+    },
+    {
+      "type": "customer",
+      "step": "interpret",
+      "text": "Podemos marcar uma reunião para rever a proposta?"
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Email etiquetado como reunião e horário livre encontrado.",
+      "tool": "mail.label"
+    },
+    {
+      "type": "system",
+      "step": "human",
+      "text": "Reserva do horário aguarda aprovação",
+      "tool": "calendar.hold",
+      "guardrail": "human-approval"
+    },
+    {
+      "type": "agent",
+      "step": "done",
+      "text": "Rascunho de resposta com o horário criado",
+      "tool": "mail.draft_reply"
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "handoff": false
+  }
+}

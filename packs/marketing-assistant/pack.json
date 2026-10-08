@@ -1,0 +1,257 @@
+{
+  "$schema": "../../schema/pack.schema.json",
+  "schemaVersion": 1,
+  "id": "PACK-006",
+  "slug": "marketing-assistant",
+  "version": "0.1.0",
+  "status": "demo",
+  "name": "Assistente de Marketing",
+  "summary": "Colaborador digital gerido pela AtlasHub: rascunho de publicação. Demonstração com dados fictícios; funcional em staging com sistemas sandbox.",
+  "locale": "pt-PT",
+  "owner": "atlashub",
+  "segments": [
+    "transversal"
+  ],
+  "equation": [
+    "receita",
+    "velocidade"
+  ],
+  "channels": [
+    "interno"
+  ],
+  "commercial": {
+    "cloud": true,
+    "onsite": true
+  },
+  "steps": [
+    {
+      "id": "trigger",
+      "label": "Pedido",
+      "description": "Entrada assinada pelo canal do cliente"
+    },
+    {
+      "id": "interpret",
+      "label": "Interpretar",
+      "description": "Intenção por regras (pt/en/es); IA opcional só quando as regras não reconhecem"
+    },
+    {
+      "id": "act",
+      "label": "Executar",
+      "description": "Ferramentas autorizadas no sistema do cliente"
+    },
+    {
+      "id": "human",
+      "label": "Supervisão humana",
+      "description": "Aprovação ou passagem para uma pessoa"
+    },
+    {
+      "id": "done",
+      "label": "Concluir",
+      "description": "Resultado auditado e medido"
+    }
+  ],
+  "runtime": {
+    "agent": "atlashub-role-engine",
+    "skills": [
+      "skills/agent.md"
+    ],
+    "workflows": [
+      "workflows/README.md"
+    ]
+  },
+  "tools": [
+    {
+      "id": "research.collect",
+      "description": "Consulta o sistema do cliente.",
+      "policy": "auto",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/marketing-assistant/research-collect",
+        "demo": "mock:research.collect"
+      }
+    },
+    {
+      "id": "post.draft",
+      "description": "Altera o sistema do cliente.",
+      "policy": "auto",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/marketing-assistant/post-draft",
+        "demo": "mock:post.draft"
+      }
+    },
+    {
+      "id": "post.schedule",
+      "description": "Altera o sistema do cliente (exige aprovação humana).",
+      "policy": "approval",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/marketing-assistant/post-schedule",
+        "demo": "mock:post.schedule"
+      }
+    },
+    {
+      "id": "report.generate",
+      "description": "Consulta o sistema do cliente.",
+      "policy": "auto",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/marketing-assistant/report-generate",
+        "demo": "mock:report.generate"
+      }
+    },
+    {
+      "id": "team.handoff",
+      "description": "Consulta o sistema do cliente.",
+      "policy": "auto",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/marketing-assistant/team-handoff",
+        "demo": "mock:team.handoff"
+      }
+    }
+  ],
+  "integrations": [
+    {
+      "id": "sources",
+      "kind": "rss",
+      "required": true,
+      "description": "Fontes aprovadas e licenciadas"
+    },
+    {
+      "id": "social",
+      "kind": "social",
+      "required": false,
+      "description": "Agendamento em redes sociais"
+    },
+    {
+      "id": "analytics",
+      "kind": "analytics",
+      "required": false,
+      "description": "Métricas de publicação"
+    }
+  ],
+  "config": [
+    {
+      "key": "business_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "key": "handoff_queue",
+      "type": "string",
+      "required": true
+    },
+    {
+      "key": "locale",
+      "type": "string",
+      "required": false
+    }
+  ],
+  "guardrails": [
+    {
+      "id": "licensed-sources",
+      "rule": "Usar só fontes aprovadas e licenciadas.",
+      "action": "block"
+    },
+    {
+      "id": "human-approval",
+      "rule": "Nada é publicado ou agendado sem aprovação humana; publicar diretamente está proibido.",
+      "action": "handoff"
+    },
+    {
+      "id": "forbidden-tools",
+      "rule": "Ações proibidas a este colaborador: post.publish.",
+      "action": "block"
+    }
+  ],
+  "metrics": {
+    "inputs": [
+      {
+        "key": "volume_per_month",
+        "label": "Pedidos por mês",
+        "unit": "",
+        "default": 300,
+        "min": 0,
+        "max": 100000,
+        "step": 10
+      },
+      {
+        "key": "minutes_per_task",
+        "label": "Minutos por pedido hoje",
+        "unit": "min",
+        "default": 6,
+        "min": 1,
+        "max": 120,
+        "step": 1
+      },
+      {
+        "key": "automatable_pct",
+        "label": "Pedidos tratados sem intervenção",
+        "unit": "%",
+        "default": 60,
+        "min": 0,
+        "max": 100,
+        "step": 5
+      }
+    ],
+    "outputs": [
+      {
+        "key": "hours_saved",
+        "label": "Horas de equipa libertadas por mês",
+        "unit": "h",
+        "formula": "round(volume_per_month * minutes_per_task * automatable_pct / 100 / 60)"
+      }
+    ],
+    "disclaimer": "Hipótese calculada com os números indicados. Não é uma previsão nem um resultado garantido."
+  },
+  "demo": {
+    "fixtures": "demo/fixtures/example.json",
+    "mocks": "demo/mocks.json",
+    "scenarios": [
+      "demo/scenarios/01-draft-post.json"
+    ],
+    "labels": {
+      "header": "Marca Fictícia · Demo",
+      "agent": "ASSISTENTE DE MARKETING · DEMO",
+      "customer": "PESSOA FICTÍCIA"
+    }
+  },
+  "tests": "tests/acceptance.json",
+  "compliance": {
+    "dataClasses": [
+      "conteúdo público"
+    ],
+    "excludes": [
+      "dados sensíveis",
+      "credenciais",
+      "dados reais em demonstração"
+    ],
+    "lgpd": [
+      "Consentimento e base legal antes de tratar dados",
+      "Minimização e retenção definidas por contrato"
+    ]
+  },
+  "clara": {
+    "intro": [
+      "Sou a Clara. A AtlasHub opera e supervisiona o Assistente de Marketing como serviço gerido.",
+      "Demonstração com dados fictícios; nenhuma ação real é executada."
+    ],
+    "allDone": "Solicite um assessment para definir âmbito, integrações e limites. Este colaborador está em demonstração, ainda não em piloto.",
+    "context": [
+      {
+        "label": "Segmento",
+        "value": "transversal"
+      },
+      {
+        "label": "Ações com aprovação",
+        "value": "post.schedule"
+      }
+    ]
+  }
+}

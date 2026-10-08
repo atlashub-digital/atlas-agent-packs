@@ -1,0 +1,35 @@
+{
+  "id": "order-status",
+  "label": "Estado da encomenda",
+  "description": "Dados só depois de verificar encomenda + email",
+  "humanReview": "skip",
+  "claraAfter": "Sem verificação, o assistente não revela nenhum dado da encomenda.",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Mensagem fictícia"
+    },
+    {
+      "type": "customer",
+      "step": "interpret",
+      "text": "Onde está a minha encomenda?"
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Identidade verificada com número e email.",
+      "tool": "order.lookup",
+      "guardrail": "verify-identity"
+    },
+    {
+      "type": "agent",
+      "step": "done",
+      "text": "Estado comunicado: enviada"
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "handoff": false
+  }
+}

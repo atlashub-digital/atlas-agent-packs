@@ -1,1 +1,44 @@
-{ "team.handoff": { "returns": { "task_id": "DEMO-TASK-001" } } }
+{
+  "crm.upsert_lead": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "crm.log_activity": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "crm.suppress": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "calendar.find_slots": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "calendar.book_meeting": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "message.send_followup": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "team.handoff": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  }
+}

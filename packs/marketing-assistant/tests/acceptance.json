@@ -1,0 +1,13 @@
+{
+  "engine": "AtlasHub-AI-WaaS tests/roles.e2e.mjs",
+  "cases": [
+    {
+      "id": "D01",
+      "description": "Fontes licenciadas; publicação só com aprovação",
+      "expect": {
+        "status": "completed",
+        "handoff": false
+      }
+    }
+  ]
+}

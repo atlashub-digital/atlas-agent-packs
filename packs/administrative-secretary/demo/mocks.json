@@ -1,1 +1,44 @@
-{ "team.handoff": { "returns": { "task_id": "DEMO-TASK-001" } } }
+{
+  "mail.read": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "mail.label": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "mail.draft_reply": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "calendar.find_slots": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "calendar.hold": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "brief.create": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "team.handoff": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  }
+}

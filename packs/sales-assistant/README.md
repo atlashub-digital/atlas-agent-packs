@@ -1,2 +1,5 @@
-# Assistente Comercial
-Estado demo. Qualificação de lead e proposta de próximo passo, sob supervisão AtlasHub. Sem CRM, email ou calendário real. Nenhum envio ou compromisso autónomo. Testar com `npm run check`.
+# PACK-002 · Assistente Comercial
+
+Colaborador digital gerido pela AtlasHub: lead qualificado, pedido de remoção. Demonstração com dados fictícios; funcional em staging com sistemas sandbox.
+
+Versão 0.2.0 · estado `demo` · motor: AtlasHub-AI-WaaS. Ver `skills/agent.md` (intenções e limites) e `workflows/README.md` (webhooks n8n).

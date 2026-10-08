@@ -1,0 +1,41 @@
+{
+  "id": "refund",
+  "label": "Pedido de reembolso",
+  "description": "Reembolso sempre aprovado por uma pessoa",
+  "humanReview": "required",
+  "claraAfter": "O assistente nunca movimenta dinheiro: regista o pedido para a equipa financeira.",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Mensagem fictícia"
+    },
+    {
+      "type": "customer",
+      "step": "interpret",
+      "text": "Quero o reembolso."
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Encomenda verificada.",
+      "tool": "order.lookup"
+    },
+    {
+      "type": "system",
+      "step": "human",
+      "text": "Reembolso aguarda aprovação",
+      "tool": "refund.request",
+      "guardrail": "human-approval"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "Aprovado e passado à equipa financeira"
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "handoff": false
+  }
+}

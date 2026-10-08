@@ -1,0 +1,255 @@
+{
+  "$schema": "../../schema/pack.schema.json",
+  "schemaVersion": 1,
+  "id": "PACK-007",
+  "slug": "finance-assistant",
+  "version": "0.1.0",
+  "status": "demo",
+  "name": "Assistente Financeiro Administrativo",
+  "summary": "Colaborador digital gerido pela AtlasHub: fatura e conciliação, pedido de transferência. Demonstração com dados fictícios; funcional em staging com sistemas sandbox.",
+  "locale": "pt-PT",
+  "owner": "atlashub",
+  "segments": [
+    "contabilidade",
+    "transversal"
+  ],
+  "equation": [
+    "custos",
+    "controlo"
+  ],
+  "channels": [
+    "email",
+    "interno"
+  ],
+  "commercial": {
+    "cloud": true,
+    "onsite": true
+  },
+  "steps": [
+    {
+      "id": "trigger",
+      "label": "Pedido",
+      "description": "Entrada assinada pelo canal do cliente"
+    },
+    {
+      "id": "interpret",
+      "label": "Interpretar",
+      "description": "Intenção por regras (pt/en/es); IA opcional só quando as regras não reconhecem"
+    },
+    {
+      "id": "act",
+      "label": "Executar",
+      "description": "Ferramentas autorizadas no sistema do cliente"
+    },
+    {
+      "id": "human",
+      "label": "Supervisão humana",
+      "description": "Aprovação ou passagem para uma pessoa"
+    },
+    {
+      "id": "done",
+      "label": "Concluir",
+      "description": "Resultado auditado e medido"
+    }
+  ],
+  "runtime": {
+    "agent": "atlashub-role-engine",
+    "skills": [
+      "skills/agent.md"
+    ],
+    "workflows": [
+      "workflows/README.md"
+    ]
+  },
+  "tools": [
+    {
+      "id": "invoice.register",
+      "description": "Altera o sistema do cliente.",
+      "policy": "auto",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/finance-assistant/invoice-register",
+        "demo": "mock:invoice.register"
+      }
+    },
+    {
+      "id": "reconcile.match",
+      "description": "Altera o sistema do cliente.",
+      "policy": "auto",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/finance-assistant/reconcile-match",
+        "demo": "mock:reconcile.match"
+      }
+    },
+    {
+      "id": "reminder.send",
+      "description": "Altera o sistema do cliente (exige aprovação humana).",
+      "policy": "approval",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/finance-assistant/reminder-send",
+        "demo": "mock:reminder.send"
+      }
+    },
+    {
+      "id": "team.handoff",
+      "description": "Consulta o sistema do cliente.",
+      "policy": "auto",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/finance-assistant/team-handoff",
+        "demo": "mock:team.handoff"
+      }
+    }
+  ],
+  "integrations": [
+    {
+      "id": "erp",
+      "kind": "erp",
+      "required": true,
+      "description": "ERP / registo de faturas"
+    },
+    {
+      "id": "bank",
+      "kind": "bank_feed",
+      "required": true,
+      "description": "Extrato bancário (só leitura)"
+    },
+    {
+      "id": "email",
+      "kind": "email",
+      "required": false,
+      "description": "Envio de lembretes aprovados"
+    }
+  ],
+  "config": [
+    {
+      "key": "business_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "key": "handoff_queue",
+      "type": "string",
+      "required": true
+    },
+    {
+      "key": "locale",
+      "type": "string",
+      "required": false
+    }
+  ],
+  "guardrails": [
+    {
+      "id": "no-money-movement",
+      "rule": "Transferências e pagamentos são proibidos ao assistente.",
+      "action": "block"
+    },
+    {
+      "id": "no-duplicates",
+      "rule": "Faturas duplicadas não são registadas.",
+      "action": "block"
+    },
+    {
+      "id": "human-approval",
+      "rule": "Lembretes de cobrança só com aprovação; conciliações são propostas.",
+      "action": "handoff"
+    },
+    {
+      "id": "forbidden-tools",
+      "rule": "Ações proibidas a este colaborador: payment.transfer.",
+      "action": "block"
+    }
+  ],
+  "metrics": {
+    "inputs": [
+      {
+        "key": "volume_per_month",
+        "label": "Pedidos por mês",
+        "unit": "",
+        "default": 300,
+        "min": 0,
+        "max": 100000,
+        "step": 10
+      },
+      {
+        "key": "minutes_per_task",
+        "label": "Minutos por pedido hoje",
+        "unit": "min",
+        "default": 6,
+        "min": 1,
+        "max": 120,
+        "step": 1
+      },
+      {
+        "key": "automatable_pct",
+        "label": "Pedidos tratados sem intervenção",
+        "unit": "%",
+        "default": 60,
+        "min": 0,
+        "max": 100,
+        "step": 5
+      }
+    ],
+    "outputs": [
+      {
+        "key": "hours_saved",
+        "label": "Horas de equipa libertadas por mês",
+        "unit": "h",
+        "formula": "round(volume_per_month * minutes_per_task * automatable_pct / 100 / 60)"
+      }
+    ],
+    "disclaimer": "Hipótese calculada com os números indicados. Não é uma previsão nem um resultado garantido."
+  },
+  "demo": {
+    "fixtures": "demo/fixtures/example.json",
+    "mocks": "demo/mocks.json",
+    "scenarios": [
+      "demo/scenarios/01-register-reconcile.json",
+      "demo/scenarios/02-transfer-blocked.json"
+    ],
+    "labels": {
+      "header": "PME Fictícia · Demo",
+      "agent": "ASSISTENTE FINANCEIRO ADMINISTRATIVO · DEMO",
+      "customer": "PESSOA FICTÍCIA"
+    }
+  },
+  "tests": "tests/acceptance.json",
+  "compliance": {
+    "dataClasses": [
+      "faturas",
+      "movimentos bancários"
+    ],
+    "excludes": [
+      "dados sensíveis",
+      "credenciais",
+      "dados reais em demonstração"
+    ],
+    "lgpd": [
+      "Consentimento e base legal antes de tratar dados",
+      "Minimização e retenção definidas por contrato"
+    ]
+  },
+  "clara": {
+    "intro": [
+      "Sou a Clara. A AtlasHub opera e supervisiona o Assistente Financeiro Administrativo como serviço gerido.",
+      "Demonstração com dados fictícios; nenhuma ação real é executada."
+    ],
+    "allDone": "Solicite um assessment para definir âmbito, integrações e limites. Este colaborador está em demonstração, ainda não em piloto.",
+    "context": [
+      {
+        "label": "Segmento",
+        "value": "contabilidade, transversal"
+      },
+      {
+        "label": "Ações com aprovação",
+        "value": "reminder.send"
+      }
+    ]
+  }
+}

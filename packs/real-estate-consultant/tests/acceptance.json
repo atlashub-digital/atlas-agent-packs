@@ -1,0 +1,20 @@
+{
+  "engine": "AtlasHub-AI-WaaS tests/roles.e2e.mjs",
+  "cases": [
+    {
+      "id": "D01",
+      "description": "Só imóveis reais e disponíveis da carteira",
+      "expect": {
+        "status": "completed",
+        "handoff": false
+      }
+    },
+    {
+      "id": "D02",
+      "description": "Ofertas e descontos são sempre humanos",
+      "expect": {
+        "handoff": true
+      }
+    }
+  ]
+}

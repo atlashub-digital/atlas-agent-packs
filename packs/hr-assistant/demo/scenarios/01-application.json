@@ -1,0 +1,35 @@
+{
+  "id": "application",
+  "label": "Candidatura",
+  "description": "Atributos sensíveis descartados à entrada",
+  "humanReview": "skip",
+  "claraAfter": "Idade, género, nacionalidade e outros atributos sensíveis nunca são guardados.",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Candidatura fictícia com consentimento"
+    },
+    {
+      "type": "customer",
+      "step": "interpret",
+      "text": "Quero candidatar-me à vaga de rececionista."
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Candidatura registada sem atributos sensíveis.",
+      "tool": "application.register",
+      "guardrail": "no-sensitive-data"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "Candidato informado das etapas"
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "handoff": false
+  }
+}

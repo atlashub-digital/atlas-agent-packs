@@ -1,0 +1,32 @@
+{
+  "order.lookup": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "faq.answer": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "return.create": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "refund.request": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "team.handoff": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  }
+}

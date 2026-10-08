@@ -1,0 +1,20 @@
+{
+  "engine": "AtlasHub-AI-WaaS tests/roles.e2e.mjs",
+  "cases": [
+    {
+      "id": "D01",
+      "description": "Registo sem duplicados; conciliação só proposta",
+      "expect": {
+        "status": "completed",
+        "handoff": false
+      }
+    },
+    {
+      "id": "D02",
+      "description": "Movimentar dinheiro está proibido",
+      "expect": {
+        "handoff": true
+      }
+    }
+  ]
+}

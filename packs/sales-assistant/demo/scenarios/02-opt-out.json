@@ -1,0 +1,35 @@
+{
+  "id": "opt-out",
+  "label": "Pedido de remoção",
+  "description": "Supressão imediata, sem mais contactos",
+  "humanReview": "skip",
+  "claraAfter": "O contacto fica suprimido: nenhuma cadência volta a contactá-lo.",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Mensagem fictícia recebida"
+    },
+    {
+      "type": "customer",
+      "step": "interpret",
+      "text": "Por favor removam o meu contacto."
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Contacto suprimido e atividade registada.",
+      "tool": "crm.suppress",
+      "guardrail": "consent"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "Sem contactos futuros"
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "handoff": false
+  }
+}

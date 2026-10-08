@@ -1,0 +1,32 @@
+{
+  "research.collect": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "post.draft": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "post.schedule": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "report.generate": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "team.handoff": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  }
+}

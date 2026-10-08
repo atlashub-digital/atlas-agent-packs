@@ -1,0 +1,266 @@
+{
+  "$schema": "../../schema/pack.schema.json",
+  "schemaVersion": 1,
+  "id": "PACK-004",
+  "slug": "real-estate-consultant",
+  "version": "0.1.0",
+  "status": "demo",
+  "name": "Consultor Imobiliário Digital",
+  "summary": "Colaborador digital gerido pela AtlasHub: procura de imóvel, negociação de preço. Demonstração com dados fictícios; funcional em staging com sistemas sandbox.",
+  "locale": "pt-PT",
+  "owner": "atlashub",
+  "segments": [
+    "imobiliario"
+  ],
+  "equation": [
+    "receita",
+    "velocidade"
+  ],
+  "channels": [
+    "whatsapp",
+    "webchat",
+    "email"
+  ],
+  "commercial": {
+    "cloud": true,
+    "onsite": true
+  },
+  "steps": [
+    {
+      "id": "trigger",
+      "label": "Pedido",
+      "description": "Entrada assinada pelo canal do cliente"
+    },
+    {
+      "id": "interpret",
+      "label": "Interpretar",
+      "description": "Intenção por regras (pt/en/es); IA opcional só quando as regras não reconhecem"
+    },
+    {
+      "id": "act",
+      "label": "Executar",
+      "description": "Ferramentas autorizadas no sistema do cliente"
+    },
+    {
+      "id": "human",
+      "label": "Supervisão humana",
+      "description": "Aprovação ou passagem para uma pessoa"
+    },
+    {
+      "id": "done",
+      "label": "Concluir",
+      "description": "Resultado auditado e medido"
+    }
+  ],
+  "runtime": {
+    "agent": "atlashub-role-engine",
+    "skills": [
+      "skills/agent.md"
+    ],
+    "workflows": [
+      "workflows/README.md"
+    ]
+  },
+  "tools": [
+    {
+      "id": "property.search",
+      "description": "Consulta o sistema do cliente.",
+      "policy": "auto",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/real-estate-consultant/property-search",
+        "demo": "mock:property.search"
+      }
+    },
+    {
+      "id": "property.get",
+      "description": "Consulta o sistema do cliente.",
+      "policy": "auto",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/real-estate-consultant/property-get",
+        "demo": "mock:property.get"
+      }
+    },
+    {
+      "id": "lead.capture",
+      "description": "Altera o sistema do cliente.",
+      "policy": "auto",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/real-estate-consultant/lead-capture",
+        "demo": "mock:lead.capture"
+      }
+    },
+    {
+      "id": "visit.schedule",
+      "description": "Altera o sistema do cliente (exige aprovação humana).",
+      "policy": "approval",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/real-estate-consultant/visit-schedule",
+        "demo": "mock:visit.schedule"
+      }
+    },
+    {
+      "id": "team.handoff",
+      "description": "Consulta o sistema do cliente.",
+      "policy": "auto",
+      "input": {},
+      "output": {},
+      "binding": {
+        "prod": "n8n:/webhook/real-estate-consultant/team-handoff",
+        "demo": "mock:team.handoff"
+      }
+    }
+  ],
+  "integrations": [
+    {
+      "id": "listings",
+      "kind": "database",
+      "required": true,
+      "description": "Carteira de imóveis da agência"
+    },
+    {
+      "id": "calendar",
+      "kind": "calendar",
+      "required": true,
+      "description": "Agenda de visitas"
+    },
+    {
+      "id": "crm",
+      "kind": "crm",
+      "required": false,
+      "description": "Registo de leads"
+    }
+  ],
+  "config": [
+    {
+      "key": "business_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "key": "handoff_queue",
+      "type": "string",
+      "required": true
+    },
+    {
+      "key": "locale",
+      "type": "string",
+      "required": false
+    }
+  ],
+  "guardrails": [
+    {
+      "id": "no-invention",
+      "rule": "Responder só com imóveis, preços e disponibilidade da carteira; nunca inventar.",
+      "action": "block"
+    },
+    {
+      "id": "no-offers",
+      "rule": "Propostas, descontos e negociação de preço são sempre humanos.",
+      "action": "handoff"
+    },
+    {
+      "id": "human-approval",
+      "rule": "Visitas só com aprovação humana.",
+      "action": "handoff"
+    },
+    {
+      "id": "forbidden-tools",
+      "rule": "Ações proibidas a este colaborador: offer.submit.",
+      "action": "block"
+    }
+  ],
+  "metrics": {
+    "inputs": [
+      {
+        "key": "volume_per_month",
+        "label": "Pedidos por mês",
+        "unit": "",
+        "default": 300,
+        "min": 0,
+        "max": 100000,
+        "step": 10
+      },
+      {
+        "key": "minutes_per_task",
+        "label": "Minutos por pedido hoje",
+        "unit": "min",
+        "default": 6,
+        "min": 1,
+        "max": 120,
+        "step": 1
+      },
+      {
+        "key": "automatable_pct",
+        "label": "Pedidos tratados sem intervenção",
+        "unit": "%",
+        "default": 60,
+        "min": 0,
+        "max": 100,
+        "step": 5
+      }
+    ],
+    "outputs": [
+      {
+        "key": "hours_saved",
+        "label": "Horas de equipa libertadas por mês",
+        "unit": "h",
+        "formula": "round(volume_per_month * minutes_per_task * automatable_pct / 100 / 60)"
+      }
+    ],
+    "disclaimer": "Hipótese calculada com os números indicados. Não é uma previsão nem um resultado garantido."
+  },
+  "demo": {
+    "fixtures": "demo/fixtures/example.json",
+    "mocks": "demo/mocks.json",
+    "scenarios": [
+      "demo/scenarios/01-search.json",
+      "demo/scenarios/02-negotiation.json"
+    ],
+    "labels": {
+      "header": "Imobiliária Fictícia · Demo",
+      "agent": "CONSULTOR IMOBILIÁRIO DIGITAL · DEMO",
+      "customer": "PESSOA FICTÍCIA"
+    }
+  },
+  "tests": "tests/acceptance.json",
+  "compliance": {
+    "dataClasses": [
+      "contacto",
+      "critérios de procura"
+    ],
+    "excludes": [
+      "dados sensíveis",
+      "credenciais",
+      "dados reais em demonstração"
+    ],
+    "lgpd": [
+      "Consentimento e base legal antes de tratar dados",
+      "Minimização e retenção definidas por contrato"
+    ]
+  },
+  "clara": {
+    "intro": [
+      "Sou a Clara. A AtlasHub opera e supervisiona o Consultor Imobiliário Digital como serviço gerido.",
+      "Demonstração com dados fictícios; nenhuma ação real é executada."
+    ],
+    "allDone": "Solicite um assessment para definir âmbito, integrações e limites. Este colaborador está em demonstração, ainda não em piloto.",
+    "context": [
+      {
+        "label": "Segmento",
+        "value": "imobiliario"
+      },
+      {
+        "label": "Ações com aprovação",
+        "value": "visit.schedule"
+      }
+    ]
+  }
+}

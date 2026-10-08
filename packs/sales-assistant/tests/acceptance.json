@@ -1,17 +1,20 @@
 {
+  "engine": "AtlasHub-AI-WaaS tests/roles.e2e.mjs",
   "cases": [
     {
       "id": "D01",
-      "description": "Rascunho sem envio",
+      "description": "Proposta preparada; envio só com aprovação",
       "expect": {
-        "handoff": true
+        "status": "completed",
+        "handoff": false
       }
     },
     {
       "id": "D02",
-      "description": "Envio sem aprovação bloqueado",
+      "description": "Supressão imediata, sem mais contactos",
       "expect": {
-        "handoff": true
+        "status": "completed",
+        "handoff": false
       }
     }
   ]

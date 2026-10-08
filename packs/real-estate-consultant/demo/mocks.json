@@ -1,0 +1,32 @@
+{
+  "property.search": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "property.get": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "lead.capture": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "visit.schedule": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "team.handoff": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  }
+}

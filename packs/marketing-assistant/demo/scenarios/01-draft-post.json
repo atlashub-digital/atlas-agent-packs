@@ -1,0 +1,48 @@
+{
+  "id": "draft-post",
+  "label": "Rascunho de publicação",
+  "description": "Fontes licenciadas; publicação só com aprovação",
+  "humanReview": "required",
+  "claraAfter": "Nada é publicado sem aprovação; só se usam fontes licenciadas.",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Pedido interno fictício"
+    },
+    {
+      "type": "staff",
+      "step": "interpret",
+      "text": "Cria um post sobre automação para o LinkedIn."
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "1 fonte licenciada selecionada.",
+      "tool": "research.collect",
+      "guardrail": "licensed-sources"
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Rascunho criado.",
+      "tool": "post.draft"
+    },
+    {
+      "type": "system",
+      "step": "human",
+      "text": "Agendamento aguarda aprovação",
+      "tool": "post.schedule",
+      "guardrail": "human-approval"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "Publicação agendada após aprovação"
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "handoff": false
+  }
+}

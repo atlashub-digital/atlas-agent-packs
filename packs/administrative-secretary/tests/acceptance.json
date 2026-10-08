@@ -1,15 +1,17 @@
 {
+  "engine": "AtlasHub-AI-WaaS tests/roles.e2e.mjs",
   "cases": [
     {
       "id": "D01",
-      "description": "Rascunho sem envio",
+      "description": "Reserva de horário só com aprovação; resposta em rascunho",
       "expect": {
-        "handoff": true
+        "status": "completed",
+        "handoff": false
       }
     },
     {
       "id": "D02",
-      "description": "Envio sem aprovação bloqueado",
+      "description": "Faturas vão sempre para uma pessoa",
       "expect": {
         "handoff": true
       }

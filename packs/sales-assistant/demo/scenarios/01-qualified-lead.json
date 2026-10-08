@@ -1,0 +1,47 @@
+{
+  "id": "qualified-lead",
+  "label": "Lead qualificado",
+  "description": "Proposta preparada; envio só com aprovação",
+  "humanReview": "required",
+  "claraAfter": "O follow-up só sai depois de uma pessoa da equipa aprovar o texto exato.",
+  "events": [
+    {
+      "type": "system",
+      "step": "trigger",
+      "text": "Pedido fictício com consentimento registado"
+    },
+    {
+      "type": "customer",
+      "step": "interpret",
+      "text": "Gostava de receber uma proposta e preço."
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Lead registado e qualificado (pontuação 95).",
+      "tool": "crm.upsert_lead"
+    },
+    {
+      "type": "agent",
+      "step": "act",
+      "text": "Rascunho de follow-up preparado.",
+      "tool": "crm.log_activity"
+    },
+    {
+      "type": "system",
+      "step": "human",
+      "text": "Aguarda aprovação do texto antes do envio",
+      "tool": "message.send_followup",
+      "guardrail": "human-approval"
+    },
+    {
+      "type": "system",
+      "step": "done",
+      "text": "Aprovado: follow-up enviado uma única vez"
+    }
+  ],
+  "expect": {
+    "status": "completed",
+    "handoff": false
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "engine": "AtlasHub-AI-WaaS tests/roles.e2e.mjs",
+  "cases": [
+    {
+      "id": "D01",
+      "description": "Atributos sensíveis descartados à entrada",
+      "expect": {
+        "status": "completed",
+        "handoff": false
+      }
+    },
+    {
+      "id": "D02",
+      "description": "Decisões sobre pessoas são sempre humanas",
+      "expect": {
+        "handoff": true
+      }
+    }
+  ]
+}

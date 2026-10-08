@@ -1,0 +1,21 @@
+{
+  "engine": "AtlasHub-AI-WaaS tests/roles.e2e.mjs",
+  "cases": [
+    {
+      "id": "D01",
+      "description": "Dados só depois de verificar encomenda + email",
+      "expect": {
+        "status": "completed",
+        "handoff": false
+      }
+    },
+    {
+      "id": "D02",
+      "description": "Reembolso sempre aprovado por uma pessoa",
+      "expect": {
+        "status": "completed",
+        "handoff": false
+      }
+    }
+  ]
+}

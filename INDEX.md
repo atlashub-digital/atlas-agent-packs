@@ -3,7 +3,7 @@
 Índice de tudo o que existe neste repositório e do **estado de integração** de cada peça.
 Atualizar este ficheiro em cada PR que acrescente ou mude packs, scripts ou documentação.
 
-**Versão do catálogo:** 0.1.0 · **Packs em `demo`+:** 1 · **Última atualização:** 2026-10-07
+**Versão do catálogo:** 0.3.0 · **Packs em `demo`+:** 8 · **Última atualização:** 2026-10-08
 
 Legenda: ✅ integrado e testado · 🟡 integrado, sem verificação completa · ⬜ por fazer
 
@@ -14,6 +14,13 @@ Legenda: ✅ integrado e testado · 🟡 integrado, sem verificação completa �
 | ID | Pack | Estado | No catálogo | No simulador (app) | Produção (n8n) |
 |---|---|---|---|---|---|
 | PACK-001 | [Confirmação de consultas](packs/clinic-appointment-confirmation/) | `demo` | ✅ | ✅ 3 cenários | ⬜ workflows por construir |
+| PACK-002 | [Assistente Comercial](packs/sales-assistant/) | `demo` | ✅ | ✅ 2 cenários | 🟡 contrato por tool; motor AI-WaaS em staging |
+| PACK-003 | [Secretária Administrativa](packs/administrative-secretary/) | `demo` | ✅ | ✅ 2 cenários | 🟡 contrato por tool; motor AI-WaaS em staging |
+| PACK-004 | [Consultor Imobiliário Digital](packs/real-estate-consultant/) | `demo` | ✅ | ✅ 2 cenários | 🟡 contrato por tool; motor AI-WaaS em staging |
+| PACK-005 | [Assistente E-commerce](packs/ecommerce-assistant/) | `demo` | ✅ | ✅ 2 cenários | 🟡 contrato por tool; motor AI-WaaS em staging |
+| PACK-006 | [Assistente de Marketing](packs/marketing-assistant/) | `demo` | ✅ | ✅ 1 cenário | 🟡 contrato por tool; motor AI-WaaS em staging |
+| PACK-007 | [Assistente Financeiro Administrativo](packs/finance-assistant/) | `demo` | ✅ | ✅ 2 cenários | 🟡 contrato por tool; motor AI-WaaS em staging |
+| PACK-008 | [Assistente de RH](packs/hr-assistant/) | `demo` | ✅ | ✅ 2 cenários | 🟡 contrato por tool; motor AI-WaaS em staging |
 
 ### PACK-001 · conteúdo
 

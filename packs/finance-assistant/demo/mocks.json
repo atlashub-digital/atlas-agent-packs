@@ -1,0 +1,26 @@
+{
+  "invoice.register": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "reconcile.match": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "reminder.send": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  },
+  "team.handoff": {
+    "returns": {
+      "ok": true,
+      "demo": true
+    }
+  }
+}
