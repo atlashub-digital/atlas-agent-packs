@@ -1,6 +1,6 @@
 {
   "name": "@atlashub/agent-packs",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Atlas Agent Packs — agentes e automações reutilizáveis da AtlasHub.SI, com modo demo para o simulador.",
   "private": true,
   "type": "module",

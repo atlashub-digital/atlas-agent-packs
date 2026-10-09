@@ -1,3 +1,6 @@
+# 0.3.1 — 2026-10-09
+- `dist/catalog.json` inclui `tools` (id, descrição, política `auto`/`approval`) por pack, sem bindings nem segredos, para a biblioteca da app mostrar o que exige aprovação humana.
+
 # 0.3.0 — 2026-10-08
 - Os 8 colaboradores digitais em `demo`: PACK-004 a PACK-008 novos; PACK-002 e PACK-003 passam a 0.2.0.
 - Cada ferramenta declara `policy` (`auto` ou `approval`); ações proibidas ficam fora do manifesto e são listadas nos guardrails.
